@@ -1,5 +1,7 @@
 <?php
 
+use src\Parsedown;
+
 class UnsafeExtension extends Parsedown
 {
     protected function blockFencedCodeComplete($Block)

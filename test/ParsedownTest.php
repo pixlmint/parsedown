@@ -2,6 +2,7 @@
 require 'SampleExtensions.php';
 
 use PHPUnit\Framework\TestCase;
+use src\Parsedown;
 
 class ParsedownTest extends TestCase
 {

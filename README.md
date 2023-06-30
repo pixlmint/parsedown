@@ -35,6 +35,8 @@ Or download the [latest release] and include `Parsedown.php`
 ## Example
 
 ```php
+use PixlMint\Parsedown\Parsedown;
+
 $Parsedown = new Parsedown();
 
 echo $Parsedown->text('Hello _Parsedown_!'); # prints: <p>Hello <em>Parsedown</em>!</p>

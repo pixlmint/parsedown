@@ -1,5 +1,5 @@
 {
-    "name": "erusev/parsedown",
+    "name": "pixlmint/parsedown",
     "description": "Parser for Markdown.",
     "keywords": ["markdown", "parser"],
     "homepage": "http://parsedown.org",
@@ -10,6 +10,11 @@
             "name": "Emanuil Rusev",
             "email": "hello@erusev.com",
             "homepage": "http://erusev.com"
+        },
+        {
+            "name": "Christian Gröber",
+            "email": "christian.groeber@bluewin.ch",
+            "homepage": "https://christian-groeber.ch"
         }
     ],
     "require": {
@@ -20,7 +25,9 @@
         "phpunit/phpunit": "^4.8.35"
     },
     "autoload": {
-        "psr-0": {"Parsedown": ""}
+        "psr-4": {
+            "PixlMint\\Parsedown\\": "src/"
+        }
     },
     "autoload-dev": {
         "psr-0": {
