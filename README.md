@@ -64,21 +64,19 @@ If instead, you wish to allow HTML within untrusted user-input, but still want o
 
 In both cases you should strongly consider employing defence-in-depth measures, like [deploying a Content-Security-Policy](https://scotthelme.co.uk/content-security-policy-an-introduction/) (a browser security feature) so that your page is likely to be safe even if an attacker finds a vulnerability in one of the first lines of defence above.
 
-#### Security of Parsedown Extensions
-
 Safe mode does not necessarily yield safe results when using extensions to Parsedown. Extensions should be evaluated on their own to determine their specific safety against XSS.
 
 ## Escaping HTML
 
-> **WARNING:** This method isn't safe from XSS!
+> WARNING: This method is not safe from XSS!
 
-If you wish to escape HTML **in trusted input**, you can use the following:
+If you wish to escape HTML in trusted input, you can use the following:
 
 ```php
 $Parsedown->setMarkupEscaped(true);
 ```
 
-Beware that this still allows users to insert unsafe scripting vectors, such as links like `[xss](javascript:alert%281%29)`.
+Beware that this still allows users to insert unsafe scripting vectors, ex: `[xss](javascript:alert%281%29)`.
 
 ## Questions
 
