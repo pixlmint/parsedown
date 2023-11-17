@@ -520,6 +520,9 @@ class Parsedown
             'openerLength' => $openerLength,
             'element' => array(
                 'name' => 'math',
+                'attributes' => [
+                    'class' => 'latex',
+                ],
                 'element' => $Element,
             ),
         );
