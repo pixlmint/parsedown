@@ -149,6 +149,7 @@ class Parsedown
         '`' => array('FencedCode'),
         '|' => array('Table'),
         '~' => array('FencedCode'),
+        '$' => array('FencedMath'),
     );
 
     # ~
@@ -490,6 +491,85 @@ class Parsedown
 
     protected function blockFencedCodeComplete($Block)
     {
+        return $Block;
+    }
+
+    protected function blockFencedMath($Line)
+    {
+        $marker = $Line['text'][0];
+
+        $openerLength = strspn($Line['text'], $marker);
+
+        if ($openerLength < 2) {
+            return;
+        }
+
+        $infostring = trim(substr($Line['text'], $openerLength), "\t ");
+
+        if (str_contains($infostring, '$')) {
+            return;
+        }
+
+        $Element = array(
+            'name' => 'div',
+            'text' => '',
+        );
+
+        return array(
+            'char' => $marker,
+            'openerLength' => $openerLength,
+            'element' => array(
+                'name' => 'math',
+                'element' => $Element,
+            ),
+        );
+    }
+
+    protected function blockFencedMathContinue($Line, $Block)
+    {
+        if (isset($Block['complete'])) {
+            return;
+        }
+
+        // If the block was previously interrupted (indicated by isset($Block['interrupted'])),
+        // the method appends a number of newline characters to the block's text.
+        //
+        // The number of newlines added is equal to the value of $Block['interrupted'].
+        // It then unsets the interrupted flag, indicating that the interruption has been dealt with.
+        if (isset($Block['interrupted'])) {
+            $Block['element']['element']['text'] .= str_repeat("\n", $Block['interrupted']);
+
+            unset($Block['interrupted']);
+        }
+
+        // The method then checks if the current line ($Line['text']) starts with a sequence
+        // of characters ($Block['char']) that is at least as long as the opening sequence ($Block['openerLength']).
+        //
+        // This is likely checking for a closing fence of a block (like the end of a fenced code block in Markdown).
+        // If the rest of the line, after this sequence, is empty (or only contains whitespace), it is identified as a closing fence.
+        // If a closing fence is detected, the first character of the block's text is removed (possibly to eliminate an extra newline),
+        // and the block is marked as complete. The modified block is returned.
+        if (($len = strspn($Line['text'], $Block['char'])) >= $Block['openerLength']
+            and chop(substr($Line['text'], $len), ' ') === ''
+        ) {
+            $Block['element']['element']['text'] = substr($Block['element']['element']['text'], 1);
+
+            $Block['complete'] = true;
+
+            return $Block;
+        }
+
+        // If the line is not a closing fence, the method appends the line's body ($Line['body']) to the block's text,
+        // preceded by a newline. This is likely adding the current line of text to the fenced block.
+        $Block['element']['element']['text'] .= "\n" . $Line['body'];
+
+        return $Block;
+    }
+
+    protected function blockFencedMathComplete($Block)
+    {
+        $text = $Block['element']['element']['text'];
+        $Block['element']['element']['text'] = "$$\n$text\n$$";
         return $Block;
     }
 
