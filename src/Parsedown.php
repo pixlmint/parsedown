@@ -511,7 +511,7 @@ class Parsedown
         }
 
         $Element = array(
-            'name' => 'div',
+            'name' => 'math',
             'text' => '',
         );
 
@@ -519,7 +519,7 @@ class Parsedown
             'char' => $marker,
             'openerLength' => $openerLength,
             'element' => array(
-                'name' => 'math',
+                'name' => 'div',
                 'attributes' => [
                     'class' => 'latex',
                 ],
