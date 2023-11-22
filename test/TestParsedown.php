@@ -1,6 +1,6 @@
 <?php
 
-use src\Parsedown;
+use PixlMint\Parsedown\Parsedown;
 
 class TestParsedown extends Parsedown
 {

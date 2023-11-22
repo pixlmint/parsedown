@@ -510,11 +510,6 @@ class Parsedown
             return;
         }
 
-        $Element = array(
-            'name' => 'math',
-            'text' => '',
-        );
-
         return array(
             'char' => $marker,
             'openerLength' => $openerLength,
@@ -523,7 +518,7 @@ class Parsedown
                 'attributes' => [
                     'class' => 'latex',
                 ],
-                'element' => $Element,
+                'text' => '',
             ),
         );
     }
@@ -540,7 +535,7 @@ class Parsedown
         // The number of newlines added is equal to the value of $Block['interrupted'].
         // It then unsets the interrupted flag, indicating that the interruption has been dealt with.
         if (isset($Block['interrupted'])) {
-            $Block['element']['element']['text'] .= str_repeat("\n", $Block['interrupted']);
+            $Block['element']['text'] .= str_repeat("\n", $Block['interrupted']);
 
             unset($Block['interrupted']);
         }
@@ -555,7 +550,7 @@ class Parsedown
         if (($len = strspn($Line['text'], $Block['char'])) >= $Block['openerLength']
             and chop(substr($Line['text'], $len), ' ') === ''
         ) {
-            $Block['element']['element']['text'] = substr($Block['element']['element']['text'], 1);
+            $Block['element']['text'] = substr($Block['element']['text'], 1);
 
             $Block['complete'] = true;
 
@@ -564,15 +559,15 @@ class Parsedown
 
         // If the line is not a closing fence, the method appends the line's body ($Line['body']) to the block's text,
         // preceded by a newline. This is likely adding the current line of text to the fenced block.
-        $Block['element']['element']['text'] .= "\n" . $Line['body'];
+        $Block['element']['text'] .= "\n" . $Line['body'];
 
         return $Block;
     }
 
     protected function blockFencedMathComplete($Block)
     {
-        $text = $Block['element']['element']['text'];
-        $Block['element']['element']['text'] = "$$\n$text\n$$";
+        $text = $Block['element']['text'];
+        $Block['element']['text'] = "\n$$\n$text\n$$\n";
         return $Block;
     }
 

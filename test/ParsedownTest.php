@@ -1,28 +1,30 @@
 <?php
+require 'vendor/autoload.php';
 require 'SampleExtensions.php';
+require 'TestParsedown.php';
 
 use PHPUnit\Framework\TestCase;
-use src\Parsedown;
+use PixlMint\Parsedown\Parsedown;
 
 class ParsedownTest extends TestCase
 {
+    private static array $dirs;
+    protected $Parsedown;
+
     final function __construct($name = null, array $data = array(), $dataName = '')
     {
-        $this->dirs = $this->initDirs();
+        self::$dirs = $this->initDirs();
         $this->Parsedown = $this->initParsedown();
 
         parent::__construct($name, $data, $dataName);
     }
 
-    private $dirs;
-    protected $Parsedown;
-
     /**
      * @return array
      */
-    protected function initDirs()
+    protected static function initDirs()
     {
-        $dirs []= dirname(__FILE__).'/data/';
+        $dirs[] = dirname(__FILE__) . '/data/';
 
         return $dirs;
     }
@@ -93,20 +95,17 @@ class ParsedownTest extends TestCase
         $this->assertEquals($expectedSafeMarkup, $actualSafeMarkup);
     }
 
-    function data()
+    public static function data()
     {
         $data = array();
 
-        foreach ($this->dirs as $dir)
-        {
+        foreach (self::initDirs() as $dir) {
             $Folder = new DirectoryIterator($dir);
 
-            foreach ($Folder as $File)
-            {
+            foreach ($Folder as $File) {
                 /** @var $File DirectoryIterator */
 
-                if ( ! $File->isFile())
-                {
+                if (!$File->isFile()) {
                     continue;
                 }
 
@@ -114,16 +113,14 @@ class ParsedownTest extends TestCase
 
                 $extension = pathinfo($filename, PATHINFO_EXTENSION);
 
-                if ($extension !== 'md')
-                {
+                if ($extension !== 'md') {
                     continue;
                 }
 
                 $basename = $File->getBasename('.md');
 
-                if (file_exists($dir . $basename . '.html'))
-                {
-                    $data []= array($basename, $dir);
+                if (file_exists($dir . $basename . '.html')) {
+                    $data [] = array($basename, $dir);
                 }
             }
         }
@@ -183,12 +180,12 @@ EXPECTED_HTML;
     public function testLateStaticBinding()
     {
         $parsedown = Parsedown::instance();
-        $this->assertInstanceOf('Parsedown', $parsedown);
+        $this->assertInstanceOf(Parsedown::class, $parsedown);
 
         // After instance is already called on Parsedown
         // subsequent calls with the same arguments return the same instance
         $sameParsedown = TestParsedown::instance();
-        $this->assertInstanceOf('Parsedown', $sameParsedown);
+        $this->assertInstanceOf(Parsedown::class, $sameParsedown);
         $this->assertSame($parsedown, $sameParsedown);
 
         $testParsedown = TestParsedown::instance('test late static binding');
