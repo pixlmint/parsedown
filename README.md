@@ -1,15 +1,10 @@
-<!-- ![Parsedown](https://i.imgur.com/yE8afYV.png) -->
+# Parsedown
 
-<p align="center"><img alt="Parsedown" src="https://i.imgur.com/fKVY6Kz.png" width="240" /></p>
-
-<h1>Parsedown</h1>
-
-[![Build Status](https://travis-ci.org/erusev/parsedown.svg)](https://travis-ci.org/erusev/parsedown)
 [![Total Downloads](https://poser.pugx.org/erusev/parsedown/d/total.svg)](https://packagist.org/packages/erusev/parsedown)
 [![Version](https://poser.pugx.org/erusev/parsedown/v/stable.svg)](https://packagist.org/packages/erusev/parsedown)
 [![License](https://poser.pugx.org/erusev/parsedown/license.svg)](https://packagist.org/packages/erusev/parsedown)
 
-Better Markdown Parser in PHP - <a href="http://parsedown.org/demo">Demo</a>.
+Better Markdown Parser in PHP — <a href="https://parsedown.org/demo">demo</a>
 
 ## Features
 
@@ -100,4 +95,4 @@ Use it, star it, share it and if you feel generous, [donate](https://www.paypal.
 
 **What else should I know?**
 
-I also make [Nota](https://nota.md/) — a writing app designed for Markdown files :)
+I also make [Nota](https://nota.md/) — a notes app designed for local Markdown files.
