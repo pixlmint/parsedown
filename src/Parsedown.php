@@ -574,6 +574,7 @@ class Parsedown
     #
     # Header
 
+    private array $uniqueHeaders = [];
     protected function blockHeader($Line)
     {
         $level = strspn($Line['text'], '#');
@@ -597,11 +598,33 @@ class Parsedown
                     'function' => 'lineElements',
                     'argument' => $text,
                     'destination' => 'elements',
-                )
+                ),
+                'attributes' => [
+                    'id' => $this->getUniqueHeaderId($text),
+                ],
             ),
         );
 
         return $Block;
+    }
+
+    private function getUniqueHeaderId(string $headerId)
+    {
+        $headerId = str_replace(' ', '-', $headerId);
+        $headerId = str_replace('.', '', $headerId);
+        $originalHeader = $headerId;
+        $idFound = false;
+        $headerKindCount = 1;
+        while (!$idFound && $headerKindCount < 1000) {
+            if (!in_array($headerId, $this->uniqueHeaders)) {
+                $idFound = true;
+            } else {
+                $headerId = $originalHeader . "-" . $headerKindCount; 
+                $headerKindCount++;
+            }
+        }
+        $this->uniqueHeaders[] = $headerId;
+        return $headerId;
     }
 
     #
