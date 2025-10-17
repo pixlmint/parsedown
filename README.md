@@ -1,8 +1,10 @@
 # Parsedown
 
-[![Total Downloads](https://poser.pugx.org/erusev/parsedown/d/total.svg)](https://packagist.org/packages/erusev/parsedown)
-[![Version](https://poser.pugx.org/erusev/parsedown/v/stable.svg)](https://packagist.org/packages/erusev/parsedown)
-[![License](https://poser.pugx.org/erusev/parsedown/license.svg)](https://packagist.org/packages/erusev/parsedown)
+**my fork of the [official parsedown package](https://github.com/erusev/parsedown) by erusev, with my own small tweaks**
+
+[![Total Downloads](https://poser.pugx.org/pixlmint/parsedown/d/total.svg)](https://packagist.org/packages/pixlmint/parsedown)
+[![Version](https://poser.pugx.org/pixlmint/parsedown/v/stable.svg)](https://packagist.org/packages/pixlmint/parsedown)
+[![License](https://poser.pugx.org/pixlmint/parsedown/license.svg)](https://packagist.org/packages/pixlmint/parsedown)
 
 Better Markdown Parser in PHP — <a href="https://parsedown.org/demo">demo</a>
 
