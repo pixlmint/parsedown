@@ -8,19 +8,21 @@ Better Markdown Parser in PHP — <a href="https://parsedown.org/demo">demo</a>
 
 ## Features
 
-* One File
-* No Dependencies
-* [Super Fast](http://parsedown.org/speed)
-* Extensible
-* [GitHub flavored](https://github.github.com/gfm)
-* [Tested](http://parsedown.org/tests/) in 5.3 to 7.3
-* [Markdown Extra extension](https://github.com/erusev/parsedown-extra)
+- One file
+- No dependencies
+- [Super fast](http://parsedown.org/speed)
+- Extensible
+- [GitHub flavored](https://github.github.com/gfm)
+- [Tested](http://parsedown.org/tests/) in 5.3 to 7.3
+- [Markdown Extra extension](https://github.com/erusev/parsedown-extra)
 
 ## Installation
 
 Install the [composer package]:
 
-    composer require erusev/parsedown
+```sh
+composer require erusev/parsedown
+```
 
 Or download the [latest release] and include `Parsedown.php`
 
