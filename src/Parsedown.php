@@ -1129,7 +1129,7 @@ class Parsedown
         '*' => array('Emphasis'),
         ':' => array('Url'),
         '<' => array('UrlTag', 'EmailTag', 'Markup'),
-        '[' => array('Link'),
+        '[' => array('Link', 'Checkbox'),
         '_' => array('Emphasis'),
         '`' => array('Code'),
         '~' => array('Strikethrough'),
@@ -1381,6 +1381,33 @@ class Parsedown
         unset($Inline['element']['attributes']['href']);
 
         return $Inline;
+    }
+
+    protected function inlineCheckbox($Excerpt)
+    {
+        $Element = [
+            'name' => 'input',
+            'autobreak' => true,
+            'attributes' => [
+                'type' => 'checkbox',
+            ],
+        ];
+
+        $extent = 0;
+
+        $remainder = $Excerpt['text'];
+
+        if (preg_match('/^(\[\s?(x?)\s?\])\s?([^\(].+)$/', $remainder, $matches)) {
+            if (strlen($matches[2]) > 0) {
+                $Element['attributes']['checked'] = 1;
+            }
+            $extent += strlen($matches[1]);
+
+            return [
+                'extent' => $extent,
+                'element' => $Element,
+            ];
+        }
     }
 
     protected function inlineLink($Excerpt)

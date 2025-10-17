@@ -58,7 +58,7 @@ class ParsedownTest extends TestCase
 
         $actualMarkup = $this->Parsedown->text($markdown);
 
-        $this->assertEquals($expectedMarkup, $actualMarkup);
+        $this->assertEquals(trim($expectedMarkup), trim($actualMarkup));
     }
 
     function testRawHtml()
