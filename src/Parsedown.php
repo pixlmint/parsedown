@@ -36,10 +36,16 @@ class Parsedown
         return $markup;
     }
 
+
+    /* protected int $currentLineNumber = 0; */
+
     protected function textElements($text)
     {
         # make sure no definitions are set
         $this->DefinitionData = array();
+
+        $this->checkboxCounter = 0;
+        /* $this->currentLineNumber = 0; */
 
         # standardize line breaks
         $text = str_replace(array("\r\n", "\r"), "\n", $text);
@@ -172,7 +178,8 @@ class Parsedown
         $Elements = array();
         $CurrentBlock = null;
 
-        foreach ($lines as $line) {
+        foreach ($lines as $i => $line) {
+            /* $this->currentLineNumber = $i + 1; */
             if (chop($line) === '') {
                 if (isset($CurrentBlock)) {
                     $CurrentBlock['interrupted'] = (isset($CurrentBlock['interrupted'])
@@ -1383,6 +1390,7 @@ class Parsedown
         return $Inline;
     }
 
+    protected int $checkboxCounter = 0;
     protected function inlineCheckbox($Excerpt)
     {
         $Element = [
@@ -1390,6 +1398,8 @@ class Parsedown
             'autobreak' => true,
             'attributes' => [
                 'type' => 'checkbox',
+                'data-checkbox-index' => $this->checkboxCounter,
+                /* 'data-md-line' => $this->currentLineNumber, */
             ],
         ];
 
@@ -1398,6 +1408,7 @@ class Parsedown
         $remainder = $Excerpt['text'];
 
         if (preg_match('/^(\[\s?(x?)\s?\])\s?([^\(].+)$/', $remainder, $matches)) {
+            $this->checkboxCounter++;
             if (strlen($matches[2]) > 0) {
                 $Element['attributes']['checked'] = 1;
             }
